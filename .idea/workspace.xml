@@ -55,7 +55,6 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/wamp64/www/loveProject",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -83,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1770121955200</updated>
       <workItem from="1770121956383" duration="695000" />
-      <workItem from="1770122895421" duration="6982000" />
+      <workItem from="1770122895421" duration="7244000" />
     </task>
     <servers />
   </component>
