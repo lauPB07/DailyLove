@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>The Love Button</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="love">
+    <div id="citation-container">
+        <p id="citation">Clique pour un peu d'amour...</p>
+    </div>
+
+    <button type="button" id="button" class="buttons">Love</button>
+
+</div>
+<script src="script.js"></script>
+<div id="custom-alert" class="modal">
+    <div class="modal-content">
+        <h2>Oups ! 💖</h2>
+        <p>Tu as épuisé tes preuves d'amour pour aujourd'hui.</p>
+        <p>Reviens demain pour de nouveaux sourires !</p>
+        <button onclick="closeAlert()">D'accord</button>
+    </div>
+</div>
+</body>
+</html>
