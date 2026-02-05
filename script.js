@@ -1,16 +1,25 @@
 
 var nvbCliks = 0;
+
 function createBackgroundHearts() {
     const loveContainer = document.querySelector('.love');
-    const heartCount = 65; // Nombre de cœurs sur la page
+    
+    // Ajuster le nombre de cœurs selon la taille de l'écran
+    let heartCount = 65; // Par défaut pour desktop
+    
+    if (window.innerWidth <= 480) {
+        heartCount = 30;
+    } else if (window.innerWidth <= 768) {
+        heartCount = 45;
+    }
 
     for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('div');
         heart.className = 'hearts';
 
         // Positions aléatoires sur toute la page
-        const x = Math.random() * 100; // de 0 à 100% de la largeur
-        const y = Math.random() * 100; // de 0 à 100% de la hauteur
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
 
         // Taille aléatoire pour donner de la profondeur
         const size = Math.random() * 1.5;
@@ -28,6 +37,19 @@ function createBackgroundHearts() {
     }
 }
 
+// Recréer les cœurs lors du redimensionnement de la fenêtre
+let resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // Supprimer les anciens cœurs
+        const oldHearts = document.querySelectorAll('.hearts');
+        oldHearts.forEach(heart => heart.remove());
+        // Recréer avec le nouveau nombre
+        createBackgroundHearts();
+    }, 250); // Attendre 250ms après la fin du redimensionnement
+});
+
 window.onload = createBackgroundHearts;
 
 function closeAlert() {
@@ -38,14 +60,17 @@ function quote() {
     const today = new Date().toISOString().split('T')[0];
     let lastDate = localStorage.getItem('lastClickDate');
     let clicks = parseInt(localStorage.getItem('nbClicks')) || 0;
+    
     if (lastDate !== today) {
         clicks = 0;
         localStorage.setItem('lastClickDate', today);
     }
+    
     if (clicks >= 15) {
         document.getElementById('custom-alert').style.display = 'block';
         return;
     }
+    
     const citations = [
         "Tu es ma raison préférée de sourire",
         "Ensemble, c'est l'endroit où je préfère être",
@@ -99,11 +124,21 @@ function quote() {
         "Tu es ma définition de l'amour",
         "Pour toujours et à jamais"
     ];
+    
     const random = Math.floor(Math.random() * citations.length);
     document.getElementById('citation').textContent = citations[random];
+    
     clicks++;
     localStorage.setItem('nbClicks', clicks);
 }
 
-// N'oublie pas de garder ton écouteur sur le bouton !
+// Écouteur sur le bouton
 document.getElementById("button").addEventListener("click", quote);
+
+// Fermer la modale en cliquant en dehors
+window.onclick = function(event) {
+    const modal = document.getElementById('custom-alert');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

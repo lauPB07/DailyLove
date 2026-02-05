@@ -1,5 +1,15 @@
 body {
     background-color: #fff0f2;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.love {
+    position: relative;
+    width: 100%;
+    height: 100vh;
 }
 
 .buttons {
@@ -7,9 +17,10 @@ body {
     height: 80px;
     font-family: cursive;
     font-size: 25px;
-    position: absolute;
     border: 2px solid #f2c2c8;
     border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #button {
@@ -24,16 +35,21 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
+#button:active {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.23);
+    transform: scale(0.99);
+}
+
 /* Style de base des cœurs */
 .hearts {
     position: absolute;
     background-color: #ffdae0;
-    height: 30px; /* Un peu plus petit pour en mettre plus */
+    height: 30px;
     width: 30px;
     transform: rotate(-45deg);
     opacity: 0.6;
     z-index: -1;
-    pointer-events: none; /* Pour que les cœurs ne bloquent pas le clic sur le bouton */
+    pointer-events: none;
 }
 
 .hearts:after, .hearts:before {
@@ -54,17 +70,14 @@ body {
     100% { transform: translateY(0) rotate(-45deg) scale(1); opacity: 0.6; }
 }
 
-#button:active {
-    box-shadow: 0 5px 5px rgba(0,0,0,0.23);
-    transform: scale(0.99);
-}
-
 /* Positionnement de la citation */
 #citation-container {
     position: absolute;
-    top: 25%; /* Place le texte au dessus du bouton */
+    top: 25%;
     width: 100%;
     text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 #citation {
@@ -74,38 +87,34 @@ body {
     font-weight: bold;
     letter-spacing: 5px;
     text-transform: uppercase;
-    /* On applique ton animation ici */
     animation: gradient 2.4s infinite ease-in-out;
+    word-wrap: break-word;
 }
 
-/* Ton animation de lettres */
+/* Animation de lettres */
 @keyframes gradient {
     0%, 100% {
         letter-spacing: 5px;
         transform: scale(1);
     }
     40% {
-        letter-spacing: 20px; /* Moins violent que 50px pour rester lisible */
+        letter-spacing: 20px;
         transform: scale(1.1);
     }
 }
 
-/* On s'assure que les cœurs restent bien par dessus si besoin */
-.hearts {
-    z-index: -1;
-}
-
-/* Le fond noir transparent */
+/* Le fond transparent */
 .modal {
-    display: none; /* Caché par défaut */
+    display: none;
     position: fixed;
     z-index: 100;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 240, 242, 0.8); /* Fond rose transparent */
-    backdrop-filter: blur(5px); /* Floute l'arrière-plan */
+    background-color: rgba(255, 240, 242, 0.8);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
 }
 
 /* La boîte d'alerte */
@@ -115,11 +124,22 @@ body {
     padding: 30px;
     border: 2px solid #f2c2c8;
     border-radius: 20px;
-    width: 300px;
+    width: 90%;
+    max-width: 300px;
     text-align: center;
     box-shadow: 0 10px 25px rgba(240, 87, 87, 0.2);
     font-family: 'Helvetica', sans-serif;
     color: #F05757;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 .modal-content button {
@@ -131,8 +151,204 @@ body {
     font-weight: bold;
     cursor: pointer;
     margin-top: 15px;
+    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
 .modal-content button:hover {
     background: #F05757;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* Petits mobiles (jusqu'à 480px) */
+@media screen and (max-width: 480px) {
+    #citation {
+        font-size: 14px;
+        letter-spacing: 3px;
+        padding: 0 15px;
+    }
+    
+    @keyframes gradient {
+        0%, 100% {
+            letter-spacing: 3px;
+            transform: scale(1);
+        }
+        40% {
+            letter-spacing: 10px;
+            transform: scale(1.05);
+        }
+    }
+    
+    .buttons {
+        width: 160px;
+        height: 60px;
+        font-size: 20px;
+    }
+    
+    #button {
+        margin-top: -30px;
+        margin-left: -80px;
+    }
+    
+    #citation-container {
+        top: 20%;
+        padding: 0 15px;
+    }
+    
+    .modal-content {
+        margin: 30% auto;
+        padding: 20px;
+        width: 85%;
+    }
+    
+    .modal-content h2 {
+        font-size: 20px;
+    }
+    
+    .modal-content p {
+        font-size: 14px;
+    }
+    
+    /* Réduire le nombre et la taille des cœurs sur mobile */
+    .hearts {
+        height: 20px;
+        width: 20px;
+    }
+    
+    .hearts:after, .hearts:before {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .hearts:after { left: 10px; }
+    .hearts:before { top: -10px; }
+}
+
+/* Tablettes en portrait (481px à 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    #citation {
+        font-size: 18px;
+        letter-spacing: 4px;
+    }
+    
+    @keyframes gradient {
+        0%, 100% {
+            letter-spacing: 4px;
+            transform: scale(1);
+        }
+        40% {
+            letter-spacing: 15px;
+            transform: scale(1.08);
+        }
+    }
+    
+    .buttons {
+        width: 190px;
+        height: 70px;
+        font-size: 22px;
+    }
+    
+    #button {
+        margin-top: -35px;
+        margin-left: -95px;
+    }
+    
+    #citation-container {
+        top: 23%;
+    }
+    
+    .modal-content {
+        margin: 20% auto;
+        padding: 25px;
+    }
+    
+    .hearts {
+        height: 25px;
+        width: 25px;
+    }
+    
+    .hearts:after, .hearts:before {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .hearts:after { left: 12px; }
+    .hearts:before { top: -12px; }
+}
+
+/* Tablettes en paysage et petits ordinateurs (769px à 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    #citation {
+        font-size: 20px;
+        letter-spacing: 5px;
+    }
+    
+    .modal-content {
+        margin: 18% auto;
+    }
+}
+
+/* Très grands écrans (plus de 1440px) */
+@media screen and (min-width: 1440px) {
+    #citation {
+        font-size: 24px;
+        letter-spacing: 6px;
+    }
+    
+    @keyframes gradient {
+        0%, 100% {
+            letter-spacing: 6px;
+            transform: scale(1);
+        }
+        40% {
+            letter-spacing: 25px;
+            transform: scale(1.12);
+        }
+    }
+    
+    .buttons {
+        width: 240px;
+        height: 90px;
+        font-size: 28px;
+    }
+    
+    #button {
+        margin-top: -45px;
+        margin-left: -120px;
+    }
+    
+    .modal-content {
+        max-width: 400px;
+        padding: 40px;
+    }
+    
+    .modal-content h2 {
+        font-size: 28px;
+    }
+    
+    .modal-content p {
+        font-size: 18px;
+    }
+}
+
+/* Mode paysage pour mobiles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    #citation-container {
+        top: 10%;
+    }
+    
+    #citation {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+    
+    #button {
+        top: 55%;
+    }
+    
+    .modal-content {
+        margin: 5% auto;
+        padding: 15px;
+    }
 }
